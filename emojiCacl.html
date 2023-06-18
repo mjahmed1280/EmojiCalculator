@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emoji Calcy</title>
+ 
+  <style>
+    #bg0 {
+        text-align: center;
+      font-size: 38px;
+      padding: 60px;
+      margin-top: 2px;
+      background-color: #fdfcfc;
+  background-image: linear-gradient(to right, #c823ea, #1000f2, rgb(14, 2, 66));
+      text-justify: auto;
+      align-items: center;
+      margin-bottom: 0%;
+      height: 10%;
+      color: #f5f505;
+      font-weight: bold;
+      text-transform: uppercase;
+     
+    }
+    #emores{
+        background-color: #fdfcfc;
+        background-image: linear-gradient(to right, #f212c9ed, #10058b);
+        font-size: 140px;
+       padding: 60px;
+       text-align: center;
+    }
+    button{
+        background-color: #fdfcfc;
+  background-image: linear-gradient(to right, #a30aef, #0a0af2);
+  border-radius: 10px;
+	border: 1px solid #05b6d1;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+    height: 80px;
+    font-size: 40px;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="bg0">
+  <form>
+    <label>Enter a number:</label>
+    <input type="number" id="numberInput">
+    <button type="button" onclick="passVal()">Generate</button>
+  </form>
+  <br>
+</div>
+
+   <br>
+  <div id="emores">
+
+  </div>
+
+
+  <script>
+    var n2=0;
+    var n3=0
+  function passVal() 
+ {
+    var number = document.getElementById("numberInput").value; 
+    n2=number;
+    n3=n2*2;
+
+     emofun();
+  }
+
+  function emofun()
+  {
+        fetch('https://emojihub.yurace.pro/api/all')
+        .then( (apidata)=>{
+            //console.log(apidata)  
+            return apidata.json();
+        } )
+        .then( (rawdata)=>{
+       // console.log(rawdata);
+
+            //for( let i=2; i<5; i++ ){        
+            let im= rawdata[n2];
+            let im2= rawdata[n3];
+            let im3= rawdata[n3+10]
+            
+            //let im0= im.slice(3,6);
+            //U+1F600
+            document.getElementById("emores").innerHTML = ` ${im.htmlCode} + ${im2.htmlCode} = ${im3.htmlCode}`  ;
+
+        // document.getElementById('emospan').innerHTML= 
+        // ` NAME OF EMOJI: ${im.name}
+            // CATAGORY: ${im.category} ,
+            //UNICODE: ${im.unicode},
+            // SYMBOL: ${im.htmlCode}  `;
+            
+
+        } )
+        .catch( (e)=>{
+            console.log( `The Error: ${e}` );
+        })
+        }
+  //console.log(n2);
+
+</script>
+
+</body>
+</html>
